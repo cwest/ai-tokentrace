@@ -1,7 +1,18 @@
-# New Project Template
+# ai-tokentrace
+Add your description here
 
-This repository contains a template that can be used to seed a repository for a
-new Google open source project.
+## Getting Started
+
+To set up the development environment, you'll need Python 3.9+ and `uv`.
+
+1.  **Install all dependencies and create the virtual environment:**
+    ```bash
+    uv sync
+    ```
+
+`uv` will automatically create a virtual environment in `.venv` if one doesn't exist, and then install all dependencies from `pyproject.toml`.
+
+From here, `uv` will automatically use the virtual environment in this directory. For example, to run a command, use `uv run <command>`.
 
 See [go/releasing](http://go/releasing) (available externally at
 https://opensource.google/documentation/reference/releasing) for more information about

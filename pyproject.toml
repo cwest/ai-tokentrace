@@ -12,19 +12,33 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-repos:
--   repo: https://github.com/google/addlicense
-    rev: v1.2.0
-    hooks:
-    -   id: addlicense
--   repo: local
-    hooks:
-    -   id: addlicense
-        name: Add license header
-        entry: addlicense
-        language: system
--   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4
-    hooks:
-    -   id: ruff
-    -   id: ruff-format
+[project]
+name = "ai-tokentrace"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Casey West", email = "casey@geeknest.com" }
+]
+requires-python = ">=3.9"
+dependencies = [
+    "google-genai>=1.46.0",
+    "pydantic>=2.12.3",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.4,<0.10.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "poethepoet>=0.37.0",
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+    "ruff>=0.14.1",
+]
+
+[tool.poe.tasks]
+lint = "ruff check ."
+format = "ruff format ."
+test = "pytest"
