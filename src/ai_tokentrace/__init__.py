@@ -12,19 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-repos:
--   repo: https://github.com/google/addlicense
-    rev: v1.2.0
-    hooks:
-    -   id: addlicense
--   repo: local
-    hooks:
-    -   id: addlicense
-        name: Add license header
-        entry: addlicense
-        language: system
--   repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4
-    hooks:
-    -   id: ruff
-    -   id: ruff-format
+
+def hello() -> str:
+    return "Hello from ai-tokentrace!"
