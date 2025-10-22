@@ -24,7 +24,12 @@ requires-python = ">=3.9"
 dependencies = [
     "google-genai>=1.46.0",
     "pydantic>=2.12.3",
+    "aiofiles>=23.2.1",
 ]
+
+[project.optional-dependencies]
+firestore = ["google-cloud-firestore>=2.11.0"]
+pubsub = ["google-cloud-pubsub>=2.13.0"]
 
 [build-system]
 requires = ["uv_build>=0.9.4,<0.10.0"]
@@ -35,10 +40,44 @@ dev = [
     "poethepoet>=0.37.0",
     "pre-commit>=4.3.0",
     "pytest>=8.4.2",
+    "pytest-asyncio>=0.21.0",
     "ruff>=0.14.1",
+    "ai-tokentrace[firestore,pubsub]",
+    "honcho>=1.1.0",
 ]
 
 [tool.poe.tasks]
 lint = "ruff check ."
 format = "ruff format ."
-test = "pytest"
+test = "pytest -m 'not integration'"
+
+# Integration testing tasks
+health-check = { cmd = "uv run python scripts/health_check.py", envfile = ".env.dev" }
+start-emulators = { shell = """
+  test -s "$HOME/.sdkman/bin/sdkman-init.sh" && source "$HOME/.sdkman/bin/sdkman-init.sh"
+  uv run honcho -e .env.dev -f Procfile.dev start &
+""" }
+stop-emulators = { shell = "pkill -f 'cloud-firestore-emulator|cloud-pubsub-emulator|honcho' || true" }
+run-integration-tests = { cmd = "uv run pytest -m integration", envfile = ".env.dev" }
+test-integration = { shell = """
+  function cleanup() {
+    echo ">>> Cleaning up emulator processes..."
+    uv run poe stop-emulators
+  }
+  trap cleanup EXIT
+
+  # Ensure a clean slate before starting
+  uv run poe stop-emulators
+  
+  uv run poe start-emulators && uv run poe health-check && uv run poe run-integration-tests
+""" }
+
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+addopts = [
+    "--import-mode=importlib",
+]
+markers = [
+    "integration: marks tests as integration tests",
+]
