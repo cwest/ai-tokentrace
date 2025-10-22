@@ -14,6 +14,23 @@ To set up the development environment, you'll need Python 3.9+ and `uv`.
 
 From here, `uv` will automatically use the virtual environment in this directory. For example, to run a command, use `uv run <command>`.
 
+### Java JRE Setup
+
+Running the integration tests requires a Java JRE to run the Google Cloud emulators. We recommend using [SDKMAN!](https://sdkman.io/) to install and manage Java versions.
+
+1.  **Install SDKMAN!:**
+    ```bash
+    curl -s "https://get.sdkman.io" | bash
+    ```
+    Follow the on-screen instructions to complete the installation.
+
+2.  **Install Java:**
+    ```bash
+    sdk install java
+    ```
+
+This will install a suitable version of the Java JRE and make it available in your shell.
+
 See [go/releasing](http://go/releasing) (available externally at
 https://opensource.google/documentation/reference/releasing) for more information about
 releasing a new Google open source project.
