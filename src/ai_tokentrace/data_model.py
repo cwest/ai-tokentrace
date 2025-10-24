@@ -28,12 +28,17 @@ class TokenUsageRecord(BaseModel):
     session_id: Optional[str] = None
     user_id: Optional[str] = None
     model_name: str
+    method_name: str
     authentication_method: Literal["api_key", "service_account", "adc"]
     project_id: Optional[str] = None
     location: Optional[str] = None
     input_tokens: int
     output_tokens: int
     thinking_tokens: Optional[int] = None
+    cached_content_tokens: Optional[int] = None
+    tool_use_prompt_tokens: Optional[int] = None
+    images_generated: int = 0
+    videos_generated: int = 0
 
     @model_validator(mode="after")
     def check_vertex_ai_fields(self):
