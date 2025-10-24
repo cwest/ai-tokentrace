@@ -30,6 +30,7 @@ dependencies = [
 [project.optional-dependencies]
 firestore = ["google-cloud-firestore>=2.11.0"]
 pubsub = ["google-cloud-pubsub>=2.13.0"]
+adk = ["google-adk>=0.16.0"]
 
 [build-system]
 requires = ["uv_build>=0.9.4,<0.10.0"]
@@ -47,6 +48,7 @@ dev = [
     "pillow>=11.3.0",
     "google-cloud-firestore>=2.11.0",
     "google-cloud-pubsub>=2.13.0",
+    "google-adk>=0.16.0",
 ]
 
 [tool.poe.tasks]

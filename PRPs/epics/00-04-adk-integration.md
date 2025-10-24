@@ -9,7 +9,7 @@ This epic focuses on building the integration for tracking token usage within th
 
 ### Phase 4: ADK Integration (Effort: ~4 hours)
 1.  **Define ADK Integration Dependencies**
-    -   Description: Add an `[adk]` extra in `pyproject.toml` for the `google-ai-generativelanguage-adk` dependency.
+    -   Description: Add an `[adk]` extra in `pyproject.toml` for the `google-adk` dependency.
     -   Files to modify: `pyproject.toml`
 
 2.  **Implement Global ADK Plugin**

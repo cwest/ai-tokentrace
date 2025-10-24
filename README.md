@@ -5,6 +5,7 @@
 ## Features
 
 *   **Automatic Token Tracking:** Seamlessly integrates with the `google-genai` SDK to capture token usage from every API call.
+*   **ADK Integration:** Provides a plugin for the Google Agent Development Kit (ADK) to automatically track token usage from agents.
 *   **Multiple Backends:** Export token usage data to various destinations, including:
     *   Standard logging (for local development and debugging).
     *   JSONL files (for simple, structured data storage).
@@ -32,9 +33,56 @@ To set up the development environment, you'll need Python 3.9+ and `uv`.
 
 From here, `uv` will automatically use the virtual environment in this directory. For example, to run a command, use `uv run <command>`.
 
-## Examples
+## Installation
 
-Check out the [examples/google-genai/](examples/google-genai/) directory for runnable scripts demonstrating how to use `ai-tokentrace` with various models and configurations.
+You can install `ai-tokentrace` with specific extras depending on your needs:
+
+```bash
+# Basic installation
+pip install ai-tokentrace
+
+# With Google Cloud Firestore support
+pip install "ai-tokentrace[firestore]"
+
+# With Google Cloud Pub/Sub support
+pip install "ai-tokentrace[pubsub]"
+
+# With Google Agent Development Kit (ADK) support
+pip install "ai-tokentrace[adk]"
+```
+
+## Usage
+
+### Google GenAI SDK
+
+See the [examples/google-genai/](examples/google-genai/) directory for runnable scripts demonstrating how to use `ai-tokentrace` with the `google-genai` SDK.
+
+### Agent Development Kit (ADK)
+
+To track token usage in your ADK agents, use the `TokenTrackingPlugin`:
+
+```python
+from google.adk.runners import InMemoryRunner
+from ai_tokentrace.adk import TokenTrackingPlugin
+
+# ... define your agent ...
+
+# Create the plugin (uses default logging service if none provided)
+tracking_plugin = TokenTrackingPlugin()
+
+# Or configure it with a specific service and options
+# from ai_tokentrace.services import FirestoreTokenUsageService
+# tracking_plugin = TokenTrackingPlugin(
+#     service=FirestoreTokenUsageService(),
+#     tracked_agents=["my-critical-agent"] # Optional: only track specific agents
+# )
+
+# Add the plugin to your runner
+runner = InMemoryRunner(agent=my_agent, plugins=[tracking_plugin])
+
+# Run your agent as usual
+result = runner.run(agent_input=...)
+```
 
 ### Java JRE Setup
 

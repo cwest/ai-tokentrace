@@ -25,6 +25,7 @@ user-friendly API for all application types.
 
 import logging
 from pathlib import Path
+from typing import Protocol, runtime_checkable
 
 import aiofiles
 
@@ -32,6 +33,34 @@ from .async_utils import run_async_in_background
 from .data_model import TokenUsageRecord
 
 _logger = logging.getLogger(__name__)
+
+
+@runtime_checkable
+class TokenUsageService(Protocol):
+    """Protocol defining the interface for a synchronous token usage service."""
+
+    def export(self, record: TokenUsageRecord) -> None:
+        """Exports a token usage record."""
+        ...
+
+
+# --- Global Service Management ---
+
+_global_service: TokenUsageService | None = None
+
+
+def get_global_service() -> TokenUsageService:
+    """Returns the global TokenUsageService, creating a default one if necessary."""
+    global _global_service
+    if _global_service is None:
+        _global_service = LoggingTokenUsageService()
+    return _global_service
+
+
+def set_global_service(service: TokenUsageService) -> None:
+    """Sets the global TokenUsageService."""
+    global _global_service
+    _global_service = service
 
 
 # --- Logging Services ---
