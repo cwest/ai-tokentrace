@@ -12,5 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-firestore: gcloud emulators firestore start --project=$GOOGLE_CLOUD_PROJECT --host-port=$FIRESTORE_EMULATOR_HOST
-pubsub: gcloud beta emulators pubsub start --project=$GOOGLE_CLOUD_PROJECT --host-port=$PUBSUB_EMULATOR_HOST
+firestore: gcloud --verbosity=debug emulators firestore start --project=$GOOGLE_CLOUD_PROJECT --host-port=$FIRESTORE_EMULATOR_HOST
+
+pubsub: gcloud --verbosity=debug beta emulators pubsub start --project=$GOOGLE_CLOUD_PROJECT --host-port=$PUBSUB_EMULATOR_HOST

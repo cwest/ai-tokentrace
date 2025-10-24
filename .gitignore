@@ -83,3 +83,6 @@ dmypy.pid
 
 # ruff
 .ruff_cache
+
+# Generated artifacts from examples
+examples/output/

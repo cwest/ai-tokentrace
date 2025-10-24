@@ -42,8 +42,11 @@ dev = [
     "pytest>=8.4.2",
     "pytest-asyncio>=0.21.0",
     "ruff>=0.14.1",
-    "ai-tokentrace[firestore,pubsub]",
     "honcho>=1.1.0",
+    "python-dotenv>=0.21.0",
+    "pillow>=11.3.0",
+    "google-cloud-firestore>=2.11.0",
+    "google-cloud-pubsub>=2.13.0",
 ]
 
 [tool.poe.tasks]
