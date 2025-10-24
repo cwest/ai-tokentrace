@@ -37,6 +37,7 @@ def sample_record() -> TokenUsageRecord:
     """Provides a sample TokenUsageRecord for testing."""
     return TokenUsageRecord(
         model_name="gemini-2.5-pro",
+        method_name="generate_content",
         authentication_method="api_key",
         input_tokens=15,
         output_tokens=35,
