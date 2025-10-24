@@ -12,6 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from .google_genai import TrackedGenaiClient
 
-def hello() -> str:
-    return "Hello from ai-tokentrace!"
+__all__ = ["TrackedGenaiClient"]
